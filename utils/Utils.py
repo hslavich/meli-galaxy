@@ -16,5 +16,15 @@ def line_intersects_circle(m, b, point, r):
     '''
     https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
     '''
-    dist = abs(b + m * point[0] - point[1]) / math.sqrt(1 + m ** 2)
-    return dist <= r
+    return abs(b + m * point[0] - point[1]) / math.sqrt(1 + m ** 2) <= r
+
+def triangle_area(points):
+    x1, y1, x2, y2, x3, y3 = points[0][0], points[0][1], points[1][0], points[1][1], points[2][0], points[2][1]
+    return abs(0.5 * (((x2 - x1) * (y3 - y1)) - ((x3 - x1) * (y2 - y1))))
+
+def point_inside_triangle(points, p):
+    area_triangle = triangle_area(points)
+    area_abp = triangle_area([points[0], points[1], p])
+    area_acp = triangle_area([points[0], points[2], p])
+    area_bcp = triangle_area([points[1], points[2], p])
+    return math.isclose(area_triangle, area_abp + area_acp + area_bcp)
