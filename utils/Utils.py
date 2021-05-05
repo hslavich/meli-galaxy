@@ -2,10 +2,13 @@ import math
 import numpy as np
 
 def aligned(points):
+    '''Retorna si la recta difinida por los puntos esta alineada entre si y con respecto al (0,0)'''
     if all(p[0] == 0 for p in points):
-        return True
+        return True, True
     m, b = get_line(points[0], points[1])
-    return line_intersects_circle(m, b, points[2], 150)
+    alig = line_intersects_circle(m, b, points[2], 150)
+    sun_alig = alig and line_intersects_circle(m, b, (0, 0), 150)
+    return alig, sun_alig
 
 def get_line(point1, point2):
     m = (point2[1] - point1[1]) / (point2[0] - point1[0])

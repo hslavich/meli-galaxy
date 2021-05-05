@@ -6,13 +6,35 @@ class UtilsTest(unittest.TestCase):
 
     def test_are_points_aligned(self):
         points = [(0, 500), (0, 1000), (0, 2000)]
-        self.assertTrue(utils.aligned(points))
+        self.assertTrue(utils.aligned(points)[0])
 
         points = [(500, 0), (1000, 0), (2000, 0)]
-        self.assertTrue(utils.aligned(points))
+        self.assertTrue(utils.aligned(points)[0])
 
         points = [(0, 0), (1, 1), (2, 2)]
-        self.assertTrue(utils.aligned(points))
+        self.assertTrue(utils.aligned(points)[0])
+
+        points = [(137.82, 480.63), (-984.81, 173.65), (1486.29, 1338.26)]
+        self.assertFalse(utils.aligned(points)[0])
+
+        points = [(154.51, 475.53), (-1000.0, 0.0), (1618.03, 1175.57)]
+        self.assertTrue(utils.aligned(points)[0])
+
+    def test_are_points_aligned_with_sun(self):
+        points = [(0, 500), (0, 1000), (0, 2000)]
+        self.assertTrue(utils.aligned(points)[1])
+
+        points = [(500, 0), (1000, 0), (2000, 0)]
+        self.assertTrue(utils.aligned(points)[1])
+
+        points = [(137.82, 480.63), (-984.81, 173.65), (1486.29, 1338.26)]
+        self.assertFalse(utils.aligned(points)[1])
+
+        points = [(154.51, 475.53), (-1000.0, 0.0), (1618.03, 1175.57)]
+        self.assertFalse(utils.aligned(points)[1])
+
+        points = [(-250.0, 433.01), (500.0, -866.03), (-1089.28, 1677.34)]
+        self.assertTrue(utils.aligned(points)[1])
 
     def test_line(self):
         # y = x
