@@ -1,11 +1,12 @@
 import math
 
+
 class Planet:
 
     CLOCKWISE = -1
     ANTICLOCKWISE = 1
 
-    def __init__(self, name, speed, distance, direction = CLOCKWISE):
+    def __init__(self, name, speed, distance, direction=CLOCKWISE):
         self.name = name
         self.speed = speed
         self.distance = distance

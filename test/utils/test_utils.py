@@ -2,6 +2,7 @@ import unittest
 
 import utils.Utils as utils
 
+
 class UtilsTest(unittest.TestCase):
 
     def test_are_points_aligned(self):
