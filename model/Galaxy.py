@@ -27,8 +27,9 @@ class Galaxy:
 
     def check_status(self):
         positions = self.planet_positions()
-        aligned, sun_aligned = utils.aligned(positions)
+        self.area = utils.triangle_area(positions)
 
+        aligned, sun_aligned = utils.aligned(positions)
         if sun_aligned:
             self.status = Galaxy.STATUS_DROUGHT
         elif aligned:
