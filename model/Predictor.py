@@ -19,6 +19,13 @@ class Predictor:
                 last_period.register_area(self.galaxy.current_day, self.galaxy.area)
         self.periods[-1].end_day = self.galaxy.current_day
 
+    def get_data(self, days):
+        data = {self.galaxy.current_day: {'dia': self.galaxy.current_day, 'clima': self.galaxy.status}}
+        for _ in range(1, days):
+            self.galaxy.advance(1)
+            data[self.galaxy.current_day] = {'dia': self.galaxy.current_day, 'clima': self.galaxy.status}
+        return data
+
     def filter_periods(self, status):
         return list(filter(lambda p: p.status == status, self.periods))
 
