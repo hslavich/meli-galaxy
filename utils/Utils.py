@@ -1,13 +1,19 @@
 import math
+import numpy as np
+
+PLANET_RADIUS = 100
 
 
 def aligned(points):
     '''Retorna si la recta difinida por los puntos esta alineada entre si y con respecto al (0,0)'''
-    if all(p[0] == 0 for p in points):
-        return True, True
-    m, b = get_line(points[0], points[1])
-    alig = line_intersects_circle(m, b, points[2], 150)
-    sun_alig = alig and line_intersects_circle(m, b, (0, 0), 150)
+    if all(p[0] == points[0][0] for p in points):
+        return True, abs(points[0][0]) <= PLANET_RADIUS
+    m, b = np.polyfit([p[0] for p in points], [p[1] for p in points], 1)
+    alig = all(line_intersects_circle(m, b, p, PLANET_RADIUS) for p in points)
+    if not alig:
+        m, b = np.polyfit([p[1] for p in points], [p[0] for p in points], 1)
+        alig = all(line_intersects_circle(m, b, (y, x), PLANET_RADIUS) for x, y in points)
+    sun_alig = alig and line_intersects_circle(m, b, (0, 0), PLANET_RADIUS)
     return alig, sun_alig
 
 
@@ -25,7 +31,8 @@ def line_intersects_circle(m, b, point, r):
 
 
 def triangle_area(points):
-    x1, y1, x2, y2, x3, y3 = points[0][0], points[0][1], points[1][0], points[1][1], points[2][0], points[2][1]
+    x1, x2, x3 = points[0][0], points[1][0], points[2][0]
+    y1, y2, y3 = points[0][1], points[1][1], points[2][1]
     return abs(0.5 * (((x2 - x1) * (y3 - y1)) - ((x3 - x1) * (y2 - y1))))
 
 

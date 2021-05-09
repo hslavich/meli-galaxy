@@ -12,7 +12,7 @@ class UtilsTest(unittest.TestCase):
         points = [(500, 0), (1000, 0), (2000, 0)]
         self.assertTrue(utils.aligned(points)[0])
 
-        points = [(0, 0), (1, 1), (2, 2)]
+        points = [(130, 0), (130, 500), (130, 1500)]
         self.assertTrue(utils.aligned(points)[0])
 
         points = [(137.82, 480.63), (-984.81, 173.65), (1486.29, 1338.26)]
@@ -27,6 +27,9 @@ class UtilsTest(unittest.TestCase):
 
         points = [(500, 0), (1000, 0), (2000, 0)]
         self.assertTrue(utils.aligned(points)[1])
+
+        points = [(130, 0), (130, 500), (130, 1500)]
+        self.assertFalse(utils.aligned(points)[1])
 
         points = [(137.82, 480.63), (-984.81, 173.65), (1486.29, 1338.26)]
         self.assertFalse(utils.aligned(points)[1])
