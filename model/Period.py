@@ -6,6 +6,7 @@ class Period:
         self.max_area = (start_day, area)
 
     def register_area(self, day, area):
+        '''Actualiza el area maxima y el dia correspondiente'''
         if area > self.max_area[1]:
             self.max_area = (day, area)
 

@@ -18,14 +18,17 @@ class Galaxy:
         self.check_status()
 
     def planet_positions(self):
+        '''Retorna la lista de posiciones (x, y) de los planetas'''
         return [planet.position for planet in self.planets]
 
     def advance(self, day):
+        '''Actualiza la posicion de los planetas y el estado de la galaxia sumando dias al actual'''
         [planet.move(day) for planet in self.planets]
         self.current_day += day
         self.check_status()
 
     def check_status(self):
+        '''Calcula el estado actual de la galaxia en base a la posicion de los planetas'''
         positions = self.planet_positions()
         self.area = utils.triangle_area(positions)
 
